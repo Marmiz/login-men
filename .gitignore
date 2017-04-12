@@ -14,6 +14,9 @@ node_modules/
 # dotenv environment variables file
 .env
 
-# OS generated files 
+# OS generated files
 .DS_Store
 .DS_Store?
+
+# Bundeled file
+client/dist
