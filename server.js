@@ -6,6 +6,7 @@ const config = require('./server/config/index.json');
 // connect to the database and load models
 require('./server/models').connect(config.dbUri);
 
+
 const app = express();
 
 // set port
@@ -22,10 +23,10 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(passport.initialize());
 
 // load passport strategies
-const localSignupStrategy = require('./server/passport/local_signup');
-const localLoginStrategy = require('./server/passport/local_login');
-passport.use('local_signup', localSignupStrategy);
-passport.use('local_login', localLoginStrategy);
+const localSignupStrategy = require('./server/passport/local-signup');
+const localLoginStrategy = require('./server/passport/local-login');
+passport.use('local-signup', localSignupStrategy);
+passport.use('local-login', localLoginStrategy);
 
 // pass the authenticaion checker middleware
 const authCheckMiddleware = require('./server/middleware/auth-check');

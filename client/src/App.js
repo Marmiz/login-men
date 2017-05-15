@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
+import Auth from './modules/Auth';
 
 
 
@@ -21,10 +22,16 @@ const App = ({children}) => (
         <Link to="/">React App</Link>
       </div>
 
-      <div className="top-bar-right">
-        <Link to="/login">Log in</Link>
-        <Link to="/signup">Sign up</Link>
-      </div>
+      {Auth.isUserAuthenticated() ? (
+        <div className="top-bar-right">
+          <Link to="/logout">Log Out</Link>
+        </div>
+      ) : (
+        <div className="top-bar-right">
+          <Link to="/login">Log in</Link>
+          <Link to="/signup">Sign up</Link>
+        </div>
+      )}
 
     </div>
 

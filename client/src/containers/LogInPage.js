@@ -1,9 +1,19 @@
 import React, {Component} from 'react';
-import LogInForm from '../components/LogInForm'
+import LogInForm from '../components/LogInForm';
+import Auth from '../modules/Auth';
+
 
 class LogInPage extends Component{
-  constructor(props){
-    super(props);
+  constructor(props, context){
+    super(props, context);
+
+    const storedMessage = localStorage.getItem('successMessage');
+    let successMessage = '';
+
+    if (storedMessage) {
+      successMessage = storedMessage;
+      localStorage.removeItem('successMessage');
+    }
 
     this.state = {
       errors: {},
@@ -36,7 +46,13 @@ class LogInPage extends Component{
       if (xhr.status === 200) {
           //success
           this.setState({ errors: {} });
-          console.log('The form is valid');
+          // save the token
+          Auth.authenticateUser(xhr.response.token);
+
+          // change the current URL to /
+          this.context.router.replace('/');
+
+          // console.log('The form is valid');
       }else{
         //failure
         const errors = xhr.response.errors ? xhr.response.errors : {};
@@ -66,6 +82,7 @@ class LogInPage extends Component{
         onSubmit={this.processForm}
         onChange={this.changeUser}
         errors={this.state.errors}
+        successMessage={this.state.successMessage}
         user={this.state.user}
       />
     );

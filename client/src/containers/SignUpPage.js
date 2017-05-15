@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import SignUpForm from '../components/SignUpForm';
 
 class SignUpPage extends Component {
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
 
     this.state = {
       errors: {},
@@ -47,7 +47,12 @@ class SignUpPage extends Component {
       if (xhr.status === 200){
         // success
         this.setState({ errors: {} });
-        console.log('Form is valid');
+        // console.log('Form is valid');
+
+        // set a messagge
+        localStorage.setItem('succesMessage', xhr.response.message);
+        // redirect
+        this.context.router.replace('/login');
 
       }else{
         //errors
