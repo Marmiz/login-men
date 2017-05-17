@@ -51,8 +51,6 @@ class SignUpPage extends Component {
 
         // set a messagge
         localStorage.setItem('succesMessage', xhr.response.message);
-        // redirect
-        this.context.router.replace('/login');
 
       }else{
         //errors
@@ -67,6 +65,8 @@ class SignUpPage extends Component {
   };
 
   render(){
+    // const { successMessage } = localStorage.getItem('successMessage')
+    // console.log(successMessage)
     return (
         <SignUpForm
         onSubmit={this.processForm}

@@ -1,26 +1,21 @@
 import React, {Component} from 'react';
 import LogInForm from '../components/LogInForm';
 import Auth from '../modules/Auth';
+import Dashboard from './DashboardPage';
+import { Redirect, Route } from 'react-router-dom';
 
 
 class LogInPage extends Component{
-  constructor(props, context){
-    super(props, context);
-
-    const storedMessage = localStorage.getItem('successMessage');
-    let successMessage = '';
-
-    if (storedMessage) {
-      successMessage = storedMessage;
-      localStorage.removeItem('successMessage');
-    }
+  constructor(props){
+    super(props);
 
     this.state = {
       errors: {},
       user: {
         email: '',
         password: '',
-      }
+      },
+      redirectToReferrer: false
     };
 
     this.processForm = this.processForm.bind(this);
@@ -48,9 +43,7 @@ class LogInPage extends Component{
           this.setState({ errors: {} });
           // save the token
           Auth.authenticateUser(xhr.response.token);
-
-          // change the current URL to /
-          this.context.router.replace('/');
+          this.setState({redirectToReferrer: true});
 
           // console.log('The form is valid');
       }else{
@@ -77,6 +70,13 @@ class LogInPage extends Component{
   };
 
   render(){
+    // const { from } = this.props.location.state || { from: { pathname: '/login' } }
+    const { redirectToReferrer } = this.state
+    if (redirectToReferrer) {
+      return(
+        <Redirect to={'/dashboard'}/>
+      )
+    }
     return(
       <LogInForm
         onSubmit={this.processForm}

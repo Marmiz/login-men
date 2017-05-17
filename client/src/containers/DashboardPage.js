@@ -13,7 +13,7 @@ class DashboardPage extends Component {
 
 	/*after initial rendering call the api*/
 	componentDidMount() {
-		const xhr = new XMLHttprequest();
+		const xhr = new XMLHttpRequest();
 		xhr.open('get', '/api/dashboard');
 		xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 		// set the authorization HTTP header
@@ -23,7 +23,7 @@ class DashboardPage extends Component {
 		xhr.addEventListener('load', () => {
 			if (xhr.status === 200) {
 				this.setState({
-					secretData: xhr.response.message;
+					secretData: xhr.response.message
 				});
 			}
 		});

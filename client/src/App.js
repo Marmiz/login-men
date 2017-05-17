@@ -24,6 +24,7 @@ const App = ({children}) => (
 
       {Auth.isUserAuthenticated() ? (
         <div className="top-bar-right">
+          <Link to="/dashboard">Dashboard</Link>
           <Link to="/logout">Log Out</Link>
         </div>
       ) : (

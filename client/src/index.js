@@ -7,10 +7,16 @@ import App from './App.js';
 import HomePage from './components/HomePage';
 import SignUp from './containers/SignUpPage';
 import LogIn from './containers/LogInPage';
-import routes from './routes.js';
+import LogOut from './containers/LogOutPage';
+import Dashboard from './containers/DashboardPage';
+import Auth from './modules/Auth';
+
+// import routes from './routes.js';
 import {
   BrowserRouter as Router,
   Route,
+  Switch,
+  Redirect
 } from 'react-router-dom'
 
 
@@ -21,9 +27,16 @@ const Root = () => (
   <MuiThemeProvider>
     <Router>
       <App>
+        {Auth.isUserAuthenticated() ? (
+          <Redirect to="/dashboard" />
+        ) :(
+          <Redirect to="/"/>
+      )}
         <Route exact path="/" component={HomePage} />
         <Route exact path="/signup" component={SignUp} />
         <Route exact path="/login" component={LogIn} />
+        <Route exact path="/dashboard" component={Dashboard} />
+        <Route exact path="/logout" component={LogOut} />
       </App>
     </Router>
   </MuiThemeProvider>

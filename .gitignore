@@ -23,3 +23,6 @@ server/config/*
 
 # Bundeled file
 client/dist
+
+#old routes file
+src/.routes.js
